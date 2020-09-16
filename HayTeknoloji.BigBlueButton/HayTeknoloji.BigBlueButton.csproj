@@ -1,11 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>HayTeknoloji.BigBlueButton</PackageId>
-        <Version>0.0.1</Version>
+        <tags>BigBlueButton</tags>
+        <owners>Hay Teknoloji ve Yazılım</owners>
         <Authors>Hasan Hüseyin Pay</Authors>
         <Company>Hay Teknoloji ve Yazılım</Company>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <projectUrl>https://github.com/hayteknoloji/HayTeknoloji.BigBlueButton</projectUrl>
+        <copyright>Copyright 2020</copyright>
+        <Version>0.0.1</Version>
     </PropertyGroup>
 
     <ItemGroup>

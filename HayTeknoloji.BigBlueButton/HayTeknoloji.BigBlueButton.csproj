@@ -3,14 +3,15 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>HayTeknoloji.BigBlueButton</PackageId>
-        <tags>BigBlueButton</tags>
-        <owners>Hay Teknoloji ve Yazılım</owners>
+        <PackageTags>BigBlueButton</PackageTags>
+        <Owners>Hay Teknoloji ve Yazılım</Owners>
         <Authors>Hasan Hüseyin Pay</Authors>
         <Company>Hay Teknoloji ve Yazılım</Company>
-        <projectUrl>https://github.com/hayteknoloji/HayTeknoloji.BigBlueButton</projectUrl>
-        <copyright>Copyright 2020</copyright>
-        <Version>0.1.0</Version>
-        <releaseNotes>MeetingId added to ResultModel</releaseNotes>
+        <PackageProjectUrl>https://github.com/hayteknoloji/HayTeknoloji.BigBlueButton</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/hayteknoloji/HayTeknoloji.BigBlueButton</RepositoryUrl>
+        <Copyright>Copyright Hay Teknoloji ve Yazılım A.Ş.</Copyright>
+        <Version>0.1.1</Version>
+        <PackageReleaseNotes>Metadata update</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>

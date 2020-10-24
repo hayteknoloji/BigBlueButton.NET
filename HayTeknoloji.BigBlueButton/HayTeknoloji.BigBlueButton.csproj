@@ -9,7 +9,8 @@
         <Company>Hay Teknoloji ve Yazılım</Company>
         <projectUrl>https://github.com/hayteknoloji/HayTeknoloji.BigBlueButton</projectUrl>
         <copyright>Copyright 2020</copyright>
-        <Version>0.0.1</Version>
+        <Version>0.1.0</Version>
+        <releaseNotes>MeetingId added to ResultModel</releaseNotes>
     </PropertyGroup>
 
     <ItemGroup>

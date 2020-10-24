@@ -11,9 +11,10 @@ namespace HayTeknoloji.BigBlueButton.Helpers
 {
     public static class RequestHelper
     {
-        public static async Task<ResultModel<T>> MakeRequest<T>(HttpClient client, string uri, CancellationToken stoppingToken)
+        public static async Task<ResultModel<T>> MakeRequest<T>(HttpClient client, string uri, string meetingId, CancellationToken stoppingToken)
             where T : class
         {
+            var result = new ResultModel<T>() {MeetingId = meetingId};
             try
             {
                 var response = await client.GetAsync(uri, stoppingToken);
@@ -21,25 +22,19 @@ namespace HayTeknoloji.BigBlueButton.Helpers
                 {
                     var stream = await response.Content.ReadAsStreamAsync();
 
-                    return new ResultModel<T>()
-                    {
-                        IsSuccess = true,
-                        BbbResponse = stream.Deserialize<T>()
-                    };
+                    result.IsSuccess = true;
+                    result.BbbResponse = stream.Deserialize<T>();
+                    return result;
                 }
 
-                return new ResultModel<T>()
-                {
-                    Exception = new Exception(await response.Content.ReadAsStringAsync()),
-                };
+                result.Exception = new Exception(await response.Content.ReadAsStringAsync());
+                return result;
             }
             catch (Exception e)
             {
-                return new ResultModel<T>()
-                {
-                    InternalError = true,
-                    Exception = e,
-                };
+                result.InternalError = true;
+                result.Exception = e;
+                return result;
             }
         }
 

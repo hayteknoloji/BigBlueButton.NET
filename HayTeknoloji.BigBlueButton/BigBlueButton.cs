@@ -22,8 +22,8 @@ namespace HayTeknoloji.BigBlueButton
         {
             var baseUri = new Uri(serverUrl ?? _defaultSettings.ServerUrl);
             var url = new Uri(baseUri, "bigbluebutton/api").ToString();
-            
-            return await RequestHelper.MakeRequest<Response>(_clientFactory.CreateClient(), url, cancellationToken);
+
+            return await RequestHelper.MakeRequest<Response>(_clientFactory.CreateClient(), url, null, cancellationToken);
         }
 
         public async Task<ResultModel<CreateMeetingResponse>> CreateMeetingAsync(
@@ -84,7 +84,7 @@ namespace HayTeknoloji.BigBlueButton
                 // {"meta_bbb-recording-ready-url", (recordingEndUrl)},
             };
             var url = UrlHelper.GetBbbUri(serverUrl ?? _defaultSettings.ServerUrl, salt ?? _defaultSettings.Salt, "create", qb.ToString());
-            var result = await RequestHelper.MakeRequest<CreateMeetingResponse>(_clientFactory.CreateClient(), url, cancellationToken);
+            var result = await RequestHelper.MakeRequest<CreateMeetingResponse>(_clientFactory.CreateClient(), url, meetingId, cancellationToken);
 
             return result;
         }
@@ -97,12 +97,13 @@ namespace HayTeknoloji.BigBlueButton
                 {"meetingID", meetingId}
             };
             var url = UrlHelper.GetBbbUri(serverUrl ?? _defaultSettings.ServerUrl, salt ?? _defaultSettings.Salt, "isMeetingRunning", qb.ToString());
-            var result = await RequestHelper.MakeRequest<IsMeetingRunningResponse>(_clientFactory.CreateClient(), url, cancellationToken);
+            var result = await RequestHelper.MakeRequest<IsMeetingRunningResponse>(_clientFactory.CreateClient(), url, meetingId, cancellationToken);
 
             return result;
         }
 
-        public async Task<ResultModel<MeetingInfoResponse>> GetMeetingInfo(string meetingId, string serverUrl = null, string salt = null, string password = null,
+        public async Task<ResultModel<MeetingInfoResponse>> GetMeetingInfo(string meetingId, string serverUrl = null, string salt = null,
+            string password = null,
             CancellationToken cancellationToken = default)
         {
             var qb = new QueryStringBuilder
@@ -112,20 +113,21 @@ namespace HayTeknoloji.BigBlueButton
             };
 
             var url = UrlHelper.GetBbbUri(serverUrl ?? _defaultSettings.ServerUrl, salt ?? _defaultSettings.Salt, "getMeetingInfo", qb.ToString());
-            var result = await RequestHelper.MakeRequest<MeetingInfoResponse>(_clientFactory.CreateClient(), url, cancellationToken);
+            var result = await RequestHelper.MakeRequest<MeetingInfoResponse>(_clientFactory.CreateClient(), url, meetingId, cancellationToken);
 
             return result;
         }
-        
+
 
         public async Task<ResultModel<GetMeetingsResponse>> GetMeetings(string serverUrl = null, string salt = null,
             CancellationToken cancellationToken = default)
         {
             var url = UrlHelper.GetBbbUri(serverUrl ?? _defaultSettings.ServerUrl, salt ?? _defaultSettings.Salt, "getMeetings", "");
-            var result = await RequestHelper.MakeRequest<GetMeetingsResponse>(_clientFactory.CreateClient(), url, cancellationToken);
+            var result = await RequestHelper.MakeRequest<GetMeetingsResponse>(_clientFactory.CreateClient(), url, null, cancellationToken);
 
             return result;
         }
+
         public async Task<ResultModel<Response>> EndMeetingAsync(string meetingId, string serverUrl = null, string salt = null,
             string password = null, CancellationToken cancellationToken = default)
         {
@@ -136,13 +138,14 @@ namespace HayTeknoloji.BigBlueButton
             };
 
             var url = UrlHelper.GetBbbUri(serverUrl ?? _defaultSettings.ServerUrl, salt ?? _defaultSettings.Salt, "end", qb.ToString());
-            var result = await RequestHelper.MakeRequest<Response>(_clientFactory.CreateClient(), url, cancellationToken);
+            var result = await RequestHelper.MakeRequest<Response>(_clientFactory.CreateClient(), url, meetingId, cancellationToken);
 
             return result;
         }
-        
-        
-        public string GetMeetingJoinUrl(string meetingId, string username, string userId, string password, string serverUrl = null, string salt = null)
+
+
+        public string GetMeetingJoinUrl(string meetingId, string username, string userId, string password, string serverUrl = null,
+            string salt = null)
         {
             var qb = new QueryStringBuilder
             {
